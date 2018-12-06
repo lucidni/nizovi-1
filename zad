@@ -1,0 +1,129 @@
+package zadatak1;
+
+
+
+
+public class Zadatak1{
+    public static void main(String[] args) {
+        int [] array={12,23,-22,43,0,545,-4,-55,43,12,-99,-87,0,12,-55,43};
+        
+        rasporediClanoveNiza(array);
+        findDuplicates(array); 
+       
+       
+    }
+	
+    public static  void rasporediClanoveNiza(int [] array){
+        
+    	int [] arrayaz = new int [countLengthPoz(array)];
+        int [] arraybz = new int [countLengthNeg(array)];
+        int j=0,k=0;
+        for(int i=0;i<array.length;i++){
+            if (array[i]<0){
+                arraybz [j++] = array[i];
+            }
+            else if (array[i]>0){
+                arrayaz[k++]=array[i];
+            }
+        }
+        System.out.print("Clanovi niza kojih ukupno ima: ");
+        printArray(array);
+        System.out.print("Negativnih clanova ima : ");
+        printArray(arraybz);
+        System.out.print("Pozitivnih clanova ima : ");
+        printArray(arrayaz);
+       
+    }
+    
+    public static   void printArray(int [] array){
+        System.out.print(array.length);
+        System.out.print(" { ");
+        for (int i=0;i<array.length;i++){
+            System.out.print(array[i]);
+            if(i<array.length-1) System.out.print(", ");
+        }
+        System.out.println(" }");
+
+    }
+
+    
+    public static  int countLengthPoz(int [] array){
+            int count=0;
+            for(int i =0;i<array.length;i++){
+            if (array[i]>0){
+                count++;
+            }
+        }
+        return count;
+    }   
+    
+    public static int countLengthNeg(int [] array){
+        int count=0;
+        for(int i = 0;i<array.length;i++){
+            if (array[i]<0){
+                count++;
+            }
+        }
+        return count;
+    }
+    
+    public static void findDuplicates(int [] array) {
+	 	int size= array.length;
+	 	int brojnulaunizu=0;
+		int[] new_array= new int[size];
+        int[] times = new int[size];
+                for(int i=0;i<times.length;i++){
+            times[i]=1;
+        }
+        
+		for (int j = 0; j < array.length; j++) {
+		    for (int i = j; i < array.length; i++) {
+		        if (array[j] == array[i] && j != i) {
+                        new_array[i]=array[i];
+                        times[i]++;
+                      
+		        }
+		    }
+        }
+		
+		for (int j = 0; j < new_array.length; j++) {
+		    for (int i = j; i < new_array.length; i++) {
+		        if (new_array[j] == new_array[i] && j != i) {
+                   new_array[j]=0;
+		        }
+		       
+		    }
+		}
+		
+		for (int i = 0; i < array.length; i++) {
+			if(array[i]==0) brojnulaunizu++;
+		}
+		
+		System.out.print("Clanovi niza koji se ponavljaju su : { ");
+		for (int i = 0; i <  new_array.length; i++) {
+            		if((new_array[i] != 0) ){
+            			System.out.print( new_array[i] + ", ");
+            		}
+		}
+		if(brojnulaunizu>1) System.out.println("0 }");
+		else System.out.println(" }");
+		 
+	
+		 	
+		for (int i = 0; i <  new_array.length; i++) {
+			
+            		if(new_array[i] < 0 && times[i]>1 ){
+           		 	System.out.println("Broj:"  + "\t" +  new_array[i] + " se pojavljuje " + times[i]+ " puta");
+            		}
+			
+           		 else if (new_array[i] > 0 && times[i]>1 ){
+                		System.out.println("Broj:"  + "\t" +  new_array[i] + " se pojavljuje " + times[i]+ " puta");
+            		}
+          
+		}
+		 
+		
+		if(brojnulaunizu>1)
+		System.out.println("Broj:"  + "\t " +  0  + " se pojavljuje " + brojnulaunizu+ " puta");	
+    }
+}
